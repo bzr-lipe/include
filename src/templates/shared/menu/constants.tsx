@@ -10,7 +10,7 @@ export const menuC = {
     {
       key: 0,
       title: 'Home',
-      href: '',
+      href: '/',
       icon: <HomeIcon />,
     },
     {
@@ -33,7 +33,7 @@ export const menuC = {
     {
       key: 3,
       title: 'HelpCenter',
-      href: '',
+      href: '/help-center',
       icon: <HelpCenterIcon />,
     },
   ],
