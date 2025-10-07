@@ -3,6 +3,7 @@ import theme from '@/styles/theme';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from '@/styles/global';
 import { fontNames } from '@/styles/_fonts';
+import { UserProvider } from '@/contexts/user';
 
 export default function RootLayout({
   children,
@@ -14,7 +15,7 @@ export default function RootLayout({
       <body className={fontNames}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          {children}
+          <UserProvider>{children}</UserProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -3,9 +3,11 @@ import { FC, useState } from 'react';
 import { menuC as C } from './constants';
 import * as S from './styles';
 import { usePathname } from 'next/navigation';
+import { useUserContext } from '@/contexts/user';
 
 export const Menu: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const { logoutHandler } = useUserContext();
   const pathname = usePathname();
 
   return (
@@ -33,7 +35,7 @@ export const Menu: FC = () => {
           </S.MenuItem>
         ))}
       </S.MenuItems>
-      <S.LogoutItem>
+      <S.LogoutItem onClick={logoutHandler}>
         <S.MenuItemIconContainer>
           <S.MenuItemIcon>{C.logoutIcon.icon}</S.MenuItemIcon>
         </S.MenuItemIconContainer>

@@ -10,7 +10,7 @@ export const menuC = {
     {
       key: 0,
       title: 'Home',
-      href: '/',
+      href: '/dashboard',
       icon: <HomeIcon />,
     },
     {

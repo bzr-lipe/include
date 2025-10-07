@@ -1,25 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { weeklyViewC as C } from './constants';
 import * as S from './styles';
-import { getPbis, Pbi } from '@/api/pbis';
+import { useUserContext } from '@/contexts/user';
 
 export const WeeklyView: FC = () => {
-  const [data, setData] = useState<Pbi[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getPbis();
-      setData(response);
-    };
-
-    fetchData();
-
-    const interval = setInterval(fetchData, 100); // a cada 5 segundos
-    return () => clearInterval(interval);
-  }, []);
+  const { user } = useUserContext();
 
   function getCount(status: string) {
-    return data.filter((item) => item.status === status).length;
+    if (!user.pbis) return;
+    return user.pbis.filter((item) => item.status === status).length;
   }
 
   return (

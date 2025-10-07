@@ -4,9 +4,11 @@ import * as S from './styles';
 import { getPbis, Pbi } from '@/api/pbis';
 import { Modal } from '@/components/atoms/modal';
 import api from '@/api';
+import { useUserContext } from '@/contexts/user';
 
 export const ToDo: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { user } = useUserContext();
   const [data, setData] = useState<Pbi[]>([]);
 
   useEffect(() => {
@@ -81,21 +83,24 @@ export const ToDo: FC = () => {
       </Modal>
       <S.Box title={C.title}>
         <S.List>
-          {data.map((item, index) => (
-            <S.ListItem key={index}>
-              <S.ItemDate
-                $isCompleted={item.status === 'completed'}
-                $isDelayed={item.status !== 'completed' && getIsDelayed(item.targetDate)}
-              >
-                {getDate(item.targetDate)}
-                {item.status === 'completed' && <S.StatusIcon src={C.completedIcon} aria-hidden />}
-                {item.status !== 'completed' && getIsDelayed(item.targetDate) && (
-                  <S.StatusIcon src={C.warningIcon} aria-hidden />
-                )}
-              </S.ItemDate>
-              <S.ItemTitle>{C.itemTitle(item.id)}</S.ItemTitle>
-            </S.ListItem>
-          ))}
+          {user.pbis &&
+            user.pbis.map((item, index) => (
+              <S.ListItem key={index}>
+                <S.ItemDate
+                  $isCompleted={item.status === 'completed'}
+                  $isDelayed={item.status !== 'completed' && getIsDelayed(item.targetDate)}
+                >
+                  {getDate(item.targetDate)}
+                  {item.status === 'completed' && (
+                    <S.StatusIcon src={C.completedIcon} aria-hidden />
+                  )}
+                  {item.status !== 'completed' && getIsDelayed(item.targetDate) && (
+                    <S.StatusIcon src={C.warningIcon} aria-hidden />
+                  )}
+                </S.ItemDate>
+                <S.ItemTitle>{C.itemTitle(item.id)}</S.ItemTitle>
+              </S.ListItem>
+            ))}
         </S.List>
         <S.AddItemContainer onClick={() => setIsModalOpen(true)}>
           <S.AddItemTitle>{C.addItemTitle}</S.AddItemTitle>
