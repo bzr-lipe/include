@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import UserContextProps from './props';
 import { useRouter } from 'next/navigation';
 import { getUsers, UserData } from '@/api/users';
@@ -17,7 +17,11 @@ const DEFAULT_STATE: UserContextProps = {
 
 const UserContext = createContext<UserContextProps>(DEFAULT_STATE);
 
-export const UserProvider = ({ children }) => {
+interface UserProviderProps {
+  children: ReactNode;
+}
+
+export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<UserData>(DEFAULT_STATE.user);
   const [error, setError] = useState<string>();
   const router = useRouter();

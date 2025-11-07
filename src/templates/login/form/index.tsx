@@ -1,13 +1,8 @@
-import { FC, FormEvent, useEffect, useState } from 'react';
-import { overviewC as C } from './constants';
+import { FC, FormEvent, useState } from 'react';
 import * as S from './styles';
-import { getPbis, Pbi } from '@/api/pbis';
-import { Modal } from '@/components/atoms/modal';
-import api from '@/api';
 import { useUserContext } from '@/contexts/user';
 
 export const Form: FC = () => {
-  const [data, setData] = useState<Pbi[]>([]);
   const { loginHandler, error } = useUserContext();
   const [emptyField, setEmptyField] = useState<boolean>(false);
 
